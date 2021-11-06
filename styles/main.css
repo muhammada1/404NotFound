@@ -1,3 +1,96 @@
-h1 {
-	color: red;
+* {
+	margin: 0;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+}
+
+html {
+	background-color: #333333;
+}
+
+#analysisPage {
+	display: none;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	background-color: #333333;
+}
+
+#landingTitle {
+	display: flex;
+	justify-content: center;
+	margin-top: 25vh;
+	font-size: 2.5em;
+}
+
+#landingDescription {
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+}
+
+#myForm {
+	margin-top: 100px;
+	display: flex;
+	justify-content: center;
+}
+
+#csvFileInput {
+	display: none;
+	margin-right: 10px;
+}
+
+#csvInputButton {
+	margin-right: 10px;
+	width: 200px;
+	height: 30px;
+	background-color: orange;
+	border: none;
+	border-radius: 3px;
+	color: black;
+}
+
+#submitCsv {
+	color: black;
+	background-color: orange;
+	border: none;
+	border-radius: 3px;
+	width: 30px;
+}
+
+/* Analysis Page */
+#analysisTitle {
+	margin-left: 30px;
+	margin-top: 30px;
+}
+
+#analysisBoxes {
+	margin-top: 50px;
+	margin-left: 5%;
+	display: flex;
+}
+
+#analysisLeft {
+	width: 60%;
+	margin-right: 30px;
+}
+
+#analysisRight {
+	width: 30%;
+}
+
+.box {
+	width: 100%;
+	min-height: 400px;
+	background-color: #373737;
+	border-radius: 10px;
+	margin-bottom: 30px;
+	border: solid 1px orange;
+}
+
+.boxTitle {
+	padding-left: 20px;
+	padding-top: 20px;
 }

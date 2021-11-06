@@ -1,6 +1,6 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
-const csvFile = document.getElementById("csvFile");
+const csvFile = document.getElementById("csvFileInput");
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -15,6 +15,38 @@ function csvToArray(str, delimiter = ",") {
   });
   return arr;
 }
+
+function rank(doctors, state, dataArray){
+  let myMap = new Map;
+  let mapSort2 = new Map;
+  let i = 1;
+  if(state === "All States"){
+    doctors.forEach(item => {
+      myMap.set(i,item);
+      i++;
+    })
+    mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
+    console.log(mapSort2);
+  } else {
+    doctors.forEach(item => {
+      if(dataArray[i].State === state){
+
+        myMap.set(i,item);
+      }
+      
+      i++;
+      
+    })
+    mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
+    console.log(mapSort2);
+    
+  }
+
+  return mapSort2;
+}
+    
+
+
 
 function getTotals(dataArray) {
   // Calculate totals trx
@@ -68,6 +100,9 @@ myForm.addEventListener("submit", function (e) {
     console.log(data);
     console.log(getTotals(data))
     console.log(rankProducts(data))
+    console.log(rank(getTotals(data),"All States",data))
+    document.getElementById("landingPage").style.display = "none";
+    document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
   };
 

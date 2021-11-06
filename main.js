@@ -1,6 +1,9 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
+const csvInputButton = document.getElementById("csvInputButton");
+csvInputButton.value = csvFile.value == "" ? "Browse...": csvFile.value.split(/(\\|\/)/g).pop();
+
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -33,18 +36,18 @@ function rank(doctors, state, dataArray){
 
         myMap.set(i,item);
       }
-      
+
       i++;
-      
+
     })
     mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
     console.log(mapSort2);
-    
+
   }
 
   return mapSort2;
 }
-    
+
 
 
 

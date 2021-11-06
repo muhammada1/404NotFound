@@ -66,10 +66,10 @@ function getLineChartData(dataArray) {
   });
   // Predict next by getting average
 
-  output["Cholecap"][6] = output["Cholecap"].reduce((a, b) => {return a + b;}, 0) / 6;
-  output["Zap-a-Pain"][6] = output["Zap-a-Pain"].reduce((a, b) => {return a + b;}, 0) / 6;
-  output["Nasalclear"][6] = output["Nasalclear"].reduce((a, b) => {return a + b;}, 0) / 6;
-  output["Nova-itch"][6] = output["Nova-itch"].reduce((a, b) => {return a + b;}, 0) / 6;
+  output["Cholecap"][6] = Math.floor(output["Cholecap"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Zap-a-Pain"][6] = Math.floor(output["Zap-a-Pain"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nasalclear"][6] = Math.floor(output["Nasalclear"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nova-itch"][6] = Math.floor(output["Nova-itch"].reduce((a, b) => {return a + b;}, 0) / 6);
 
   return output;
 }

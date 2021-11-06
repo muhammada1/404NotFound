@@ -2,7 +2,7 @@ console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
 const csvInputButton = document.getElementById("csvInputButton");
-csvInputButton.value = csvFile.value.split(/(\\|\/)/g).pop();
+csvInputButton.value = csvFile.value == "" ? "Browse...": csvFile.value.split(/(\\|\/)/g).pop();
 
 
 function csvToArray(str, delimiter = ",") {
@@ -32,8 +32,8 @@ function rank(array){
 
     return mapSort2;
 }
-    
-  
+
+
 
 
 function getTotals(dataArray) {

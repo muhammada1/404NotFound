@@ -1,20 +1,25 @@
 <html>
 <head>
-	<title>Team404</title>
+	<title>Rx Interpreter</title>
 	<link rel="stylesheet" type="text/css" href="styles/main.css" />
+	<!-- Google fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div id="landingPage">
-		<h1>Team404 home</h1>
+	<div id="landingPage" class="page">
+		<h1 id="landingTitle">Rx Interpreter</h1>
+		<p id="landingDescription">Understand how your doctors are prescribing medicine</p>
+
 		<form id="myForm">
-    	<input type="file" id="csvFile" accept=".csv" />
-    	<br />
-    	<input type="submit" value="Submit" />
+    	<input type="file" id="csvFileInput" accept=".csv" />
+    	<input id="submitCsv" type="submit" value="Submit" />
   	</form>
 	</div>
 
-	<div id="analysisPage">
-		<h1>Analysis</h1>
+	<div id="analysisPage" class="page">
+		<h1 id="analysisTitle">Analysis</h1>
 	</div>
 
 	<script src="main.js"></script>

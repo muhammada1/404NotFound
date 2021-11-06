@@ -1,17 +1,16 @@
-function makeLineChart(dataArray) {
+function makeLineChart(dataset) {
   const ctx = document.getElementById('lineChart');
   console.log("Before");
-  const dataset = getLineChartData();
-  console.log("After");
   console.log(dataset);
+  console.log("After");
   const myChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["1", "2", "3", "4", "5"],
+        labels: ["Month 1", "Month 2", "Month 3", "Month 4", "Month 5", "Month 6", "Month 7 Prediction"],
         datasets: [
           {
             label: "Cholecap",
-            data: [10, 50, 25, 70, 40],
+            data: dataset["Cholecap"],
             backgroundColor: "blue",
             borderColor: "lightblue",
             fill: false,
@@ -19,10 +18,28 @@ function makeLineChart(dataArray) {
             radius: 5
           },
           {
-            label: "TeamB Score",
-            data: [20, 35, 40, 60, 50],
+            label: "Zap-a-Pain",
+            data: dataset["Zap-a-Pain"],
             backgroundColor: "green",
             borderColor: "lightgreen",
+            fill: false,
+            lineTension: 0,
+            radius: 5
+          },
+          {
+            label: "Nasalclear",
+            data: dataset["Nasalclear"],
+            backgroundColor: "orange",
+            borderColor: "#ffd699",
+            fill: false,
+            lineTension: 0,
+            radius: 5
+          },
+          {
+            label: "Nova-itch",
+            data: dataset["Nova-itch"],
+            backgroundColor: "purple",
+            borderColor: "#ff33ff",
             fill: false,
             lineTension: 0,
             radius: 5
@@ -30,11 +47,18 @@ function makeLineChart(dataArray) {
         ]
       },
       options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
+        title: {
+          display: true,
+          position: "top",
+          text: "TRx predictions",
+          fontSize: 18,
+          fontColor: "#fff"
+        },
+        scales: {
+          y: {
+            beginAtZero: true
           }
+        }
       }
   });
 }

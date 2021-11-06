@@ -18,7 +18,6 @@ function csvToArray(str, delimiter = ",") {
 
 function getTotals(dataArray) {
   // Calculate totals trx
-  let sum = 0;
   let doctors = []
   dataArray.forEach(item => {
     let sum = 0;
@@ -30,7 +29,7 @@ function getTotals(dataArray) {
     sum += Number(item.TRx_Month_6);
     doctors[item.id] = sum;
   })
-  return doctors
+  return doctors;
 }
 
 myForm.addEventListener("submit", function (e) {

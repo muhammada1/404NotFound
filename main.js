@@ -1,6 +1,9 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
+const csvInputButton = document.getElementById("csvInputButton");
+csvInputButton.value = csvFile.value.split(/(\\|\/)/g).pop();
+
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);

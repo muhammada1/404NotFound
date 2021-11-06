@@ -14,12 +14,14 @@
 
 		<form id="myForm">
     	<input type="file" id="csvFileInput" accept=".csv" />
-    	<input id="submitCsv" type="submit" value="Submit" />
+			<input id="csvInputButton" type="button" value="Select File..." onclick="document.getElementById('csvFileInput').click();" />
+    	<input id="submitCsv" type="submit" value="Go" />
   	</form>
 	</div>
 
 	<div id="analysisPage" class="page">
 		<h1 id="analysisTitle">Analysis</h1>
+
 	</div>
 
 	<script src="main.js"></script>

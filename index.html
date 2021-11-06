@@ -6,6 +6,8 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<!-- Chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
 	<div id="landingPage" class="page">
@@ -24,21 +26,11 @@
 		<div id="analysisBoxes">
 		  <div id="analysisLeft">
 				<div class="box">
-					<canvas id="lineChart" width="400" height="400"></canvas>
+					<canvas id="lineChart"></canvas>
 				</div>
 		  	<div class="box">
-					<h2 class="boxTitle">Graph   					</h2>
-
-						<!-- You will not be able to see this text. -->
-						<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<body>
-
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-
-<script src="script.js"></script>
-
-</body>
-						<!-- You will not be able to see this text. -->
+					<h2 class="boxTitle">Graph</h2>
+					<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 		  	</div>
 		  	<div class="box">
 		  	</div>
@@ -53,7 +45,8 @@
 		  </div>
 		</div>
 	</div>
-	
+
+	<script src="pieChart.js"></script>
 	<script src="lineChart.js"></script>
 	<script src="main.js"></script>
 </body>

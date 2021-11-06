@@ -128,51 +128,6 @@ function rankProducts(dataArray) {
   return productRankOrdered;
 }
 
-function pieChart(productRankOrdered){
-
-  let sum = 0;
-  let xVal = [];
-  let yVal = [];
-  for (var i = 0; i < productRankOrdered.length; i++) {
-    sum+=productRankOrdered[i][1];
-  }
-  if(productRankOrdered.length >= 5){
-    for(var i = 0; i < 5; i++){
-      xVal[i] = productRankedOrdered[i+1][0];
-      yVal[i] = (productRankOrdered[i+1][1]);
-    }
-  } else {
-    for(var i = 0; i < productRankOrdered.length+1; i++){
-      xVal[i] = productRankOrdered[i+1][0];
-      yVal[i] = (productRankOrdered[i+1][1]);
-    }
-  }
-  var barColors = [
-    "#b91d47",
-    "#00aba9",
-    "#2b5797",
-    "#e8c3b9",
-    "#1e7145"
-  ];
-
-  new Chart("myChart", {
-    type: "doughnut",
-    data: {
-      labels: xValues,
-      datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-      }]
-    },
-    options: {
-      title: {
-        display: true,
-        text: "Most Prescribed Products"
-      }
-    }
-  });
-}
-
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const input = csvFile.files[0];
@@ -182,6 +137,7 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     makeLineChart(getLineChartData(data));
+    makePieChart(rankProducts(data));
     console.log(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))

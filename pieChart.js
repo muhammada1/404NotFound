@@ -1,9 +1,7 @@
-function makePieChart(dataArray) {
+function makePieChart(productRankOrdered) {
   const ctx = document.getElementById('pieChart');
-  console.log("Before");
-  const dataset = getPieChartData();
-  console.log("After");
-  console.log(dataset);
+  console.log("Before")
+  console.log(productRankOrdered)
   let sum = 0;
   let xVal = [];
   let yVal = [];
@@ -12,13 +10,13 @@ function makePieChart(dataArray) {
   }
   if(productRankOrdered.length >= 5){
     for(var i = 0; i < 5; i++){
-      xVal[i] = productRankedOrdered[i+1][0];
-      yVal[i] = (productRankOrdered[i+1][1]);
+      xVal[i] = productRankedOrdered[i][0];
+      yVal[i] = productRankOrdered[i][1];
     }
   } else {
-    for(var i = 0; i < productRankOrdered.length+1; i++){
-      xVal[i] = productRankOrdered[i+1][0];
-      yVal[i] = (productRankOrdered[i+1][1]);
+    for(var i = 0; i < productRankOrdered.length; i++){
+      xVal[i] = productRankOrdered[i][0];
+      yVal[i] = productRankOrdered[i][1];
     }
   }
   var barColors = [
@@ -32,10 +30,10 @@ function makePieChart(dataArray) {
   new Chart("myChart", {
     type: "doughnut",
     data: {
-      labels: xValues,
+      labels: xVal,
       datasets: [{
         backgroundColor: barColors,
-        data: yValues
+        data: yVal
       }]
     },
     options: {

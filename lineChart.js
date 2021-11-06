@@ -1,8 +1,5 @@
 function makeLineChart(dataset) {
   const ctx = document.getElementById('lineChart');
-  console.log("Before");
-  console.log(dataset);
-  console.log("After");
   const myChart = new Chart(ctx, {
       type: 'line',
       data: {

@@ -1,7 +1,49 @@
-h1 {
-	color: red;
+* {
+	margin: 0;
+	color: white;
+	overflow: hidden;
+	font-family: 'Roboto', sans-serif;
 }
 
 #analysisPage {
 	display: none;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	background-color: #333333;
+}
+
+#landingTitle {
+	display: flex;
+	justify-content: center;
+	margin-top: 25vh;
+	font-size: 2.5em;
+}
+
+#landingDescription {
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+}
+
+#myForm {
+	margin-top: 100px;
+	display: flex;
+	justify-content: center;
+}
+
+#csvFileInput {
+	margin-right: 10px;
+}
+
+#submitCsv {
+	color: black;
+}
+
+/* Analysis Page */
+#analysisTitle {
+	margin-left: 30px;
+	margin-top: 30px;
 }

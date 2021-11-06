@@ -59,6 +59,8 @@ myForm.addEventListener("submit", function (e) {
     const data = csvToArray(text);
     console.log(data);
     console.log(getTotals(data))
+    document.getElementById("landingPage").style.display = "none";
+    document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
   };
 

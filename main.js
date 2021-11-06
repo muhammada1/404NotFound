@@ -16,6 +16,23 @@ function csvToArray(str, delimiter = ",") {
   return arr;
 }
 
+function rank(array){
+  let myMap = new Map;
+  let i = 1;
+  array.forEach(item => {
+
+    myMap.set(i,item);
+    i++;
+  })
+  const mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
+  console.log(mapSort2);
+
+    return mapSort2;
+}
+    
+  
+
+
 function getTotals(dataArray) {
   // Calculate totals trx
   let doctors = []

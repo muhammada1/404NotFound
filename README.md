@@ -1,5 +1,2 @@
 # 404NotFound
-asdasd
-
-## To build
-`browserify main.js -o bundle.js`
+https://muhammada1.github.io/404NotFound/

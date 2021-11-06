@@ -1,6 +1,7 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
+let dataArray = [];
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -29,25 +30,41 @@ function rankDoctors(doctors, state, dataArray){
     console.log(mapSort1);
   } else {
     doctors.forEach(item => {
-      
+
       if(dataArray[i-1].State === state){
 
         myMap.set(i,item);
       }
       i++;
-      
-      
+
+
     })
     const mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
     console.log(mapSort1);
-    
+
   }
 
   return mapSort1;
 }
-    
 
 
+const getLineChartData = () => {
+  let output = {
+    "Cholecap": [0,0,0,0,0,0],
+    "Zap-a-pain": [0,0,0,0,0,0],
+    "Nasalclear": [0,0,0,0,0,0],
+    "Nova-itch": [0,0,0,0,0,0],
+  };
+  dataArray.forEach(item => {
+    output[item.Product][0] += Number(item.TRx_Month_1);
+    output[item.Product][1] += Number(item.TRx_Month_2);
+    output[item.Product][2] += Number(item.TRx_Month_3);
+    output[item.Product][3] += Number(item.TRx_Month_4);
+    output[item.Product][4] += Number(item.TRx_Month_5);
+    output[item.Product][5] += Number(item.TRx_Month_6);
+  });
+  return output;
+}
 
 function getTotalsTRX(dataArray) {
   // Calculate totals trx
@@ -95,7 +112,7 @@ function rankProducts(dataArray) {
   var productRankOrdered = [];
   for (var product in productRank) {
     productRankOrdered.push([product, productRank[product]]);
-  } 
+  }
 
   productRankOrdered.sort(function(a, b) {
       return b[1] - a[1];
@@ -115,7 +132,7 @@ function pieChart(productRankOrdered){
     for(var i = 0; i < 5; i++){
       xVal[i] = productRankedOrdered[i+1][0];
       yVal[i] = (productRankOrdered[i+1][1]);
-    } 
+    }
   } else {
     for(var i = 0; i < productRankOrdered.length+1; i++){
       xVal[i] = productRankOrdered[i+1][0];
@@ -129,7 +146,7 @@ function pieChart(productRankOrdered){
     "#e8c3b9",
     "#1e7145"
   ];
-  
+
   new Chart("myChart", {
     type: "doughnut",
     data: {
@@ -156,6 +173,7 @@ myForm.addEventListener("submit", function (e) {
   reader.onload = function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
+    makeLineChart(data);
     console.log(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))

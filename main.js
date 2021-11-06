@@ -16,6 +16,23 @@ function csvToArray(str, delimiter = ",") {
   return arr;
 }
 
+function getTotals(dataArray) {
+  // Calculate totals trx
+  let sum = 0;
+  let doctors = []
+  dataArray.forEach(item => {
+    let sum = 0;
+    sum += Number(item.TRx_Month_1);
+    sum += Number(item.TRx_Month_2);
+    sum += Number(item.TRx_Month_3);
+    sum += Number(item.TRx_Month_4);
+    sum += Number(item.TRx_Month_5);
+    sum += Number(item.TRx_Month_6);
+    doctors[item.id] = sum;
+  })
+  return doctors
+}
+
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const input = csvFile.files[0];
@@ -25,6 +42,7 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     console.log(data);
+    console.log(getTotals(data))
     //document.write(JSON.stringify(data));
   };
 

@@ -16,39 +16,40 @@ function csvToArray(str, delimiter = ",") {
   return arr;
 }
 
-function rank(doctors, state, dataArray){
+function rankDoctors(doctors, state, dataArray){
   let myMap = new Map;
-  let mapSort2 = new Map;
+  let mapSort1 = new Map;
   let i = 1;
   if(state === "All States"){
     doctors.forEach(item => {
       myMap.set(i,item);
       i++;
     })
-    mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
-    console.log(mapSort2);
+    mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
+    console.log(mapSort1);
   } else {
     doctors.forEach(item => {
-      if(dataArray[i].State === state){
+      
+      if(dataArray[i-1].State === state){
 
         myMap.set(i,item);
       }
-      
       i++;
       
+      
     })
-    mapSort2 = new Map([...myMap.entries()].sort((a, b) => a[1] - b[1]));
-    console.log(mapSort2);
+    const mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
+    console.log(mapSort1);
     
   }
 
-  return mapSort2;
+  return mapSort1;
 }
     
 
 
 
-function getTotals(dataArray) {
+function getTotalsTRX(dataArray) {
   // Calculate totals trx
   let doctors = []
   dataArray.forEach(item => {
@@ -59,6 +60,21 @@ function getTotals(dataArray) {
     sum += Number(item.TRx_Month_4);
     sum += Number(item.TRx_Month_5);
     sum += Number(item.TRx_Month_6);
+    doctors[item.id] = sum;
+  })
+  return doctors;
+}
+function getTotalsNRX(dataArray) {
+  // Calculate totals nrx
+  let doctors = []
+  dataArray.forEach(item => {
+    let sum = 0;
+    sum += Number(item.NRx_Month_1);
+    sum += Number(item.NRx_Month_2);
+    sum += Number(item.NRx_Month_3);
+    sum += Number(item.NRx_Month_4);
+    sum += Number(item.NRx_Month_5);
+    sum += Number(item.NRx_Month_6);
     doctors[item.id] = sum;
   })
   return doctors;
@@ -98,9 +114,9 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     console.log(data);
-    console.log(getTotals(data))
+    console.log(getTotalsNRX(data))
     console.log(rankProducts(data))
-    console.log(rank(getTotals(data),"All States",data))
+    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));

@@ -38,7 +38,7 @@ function rankDoctors(doctors, state, dataArray){
 
 
     })
-    const mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
+    mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
     console.log(mapSort1);
 
   }
@@ -141,7 +141,7 @@ myForm.addEventListener("submit", function (e) {
     console.log(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))
-    //console.log(rankProducts(data))
+    console.log(rankProducts(data))
     //console.log(pieChart)
     console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
     document.getElementById("landingPage").style.display = "none";

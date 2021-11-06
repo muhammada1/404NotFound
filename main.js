@@ -1,7 +1,6 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
-let dataArray = [];
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -48,21 +47,30 @@ function rankDoctors(doctors, state, dataArray){
 }
 
 
-const getLineChartData = () => {
+function getLineChartData(dataArray) {
   let output = {
     "Cholecap": [0,0,0,0,0,0],
-    "Zap-a-pain": [0,0,0,0,0,0],
+    "Zap-a-Pain": [0,0,0,0,0,0],
     "Nasalclear": [0,0,0,0,0,0],
     "Nova-itch": [0,0,0,0,0,0],
   };
   dataArray.forEach(item => {
-    output[item.Product][0] += Number(item.TRx_Month_1);
-    output[item.Product][1] += Number(item.TRx_Month_2);
-    output[item.Product][2] += Number(item.TRx_Month_3);
-    output[item.Product][3] += Number(item.TRx_Month_4);
-    output[item.Product][4] += Number(item.TRx_Month_5);
-    output[item.Product][5] += Number(item.TRx_Month_6);
+    if (output[item.Product] !== undefined) {
+      output[item.Product][0] += Number(item.TRx_Month_1);
+      output[item.Product][1] += Number(item.TRx_Month_2);
+      output[item.Product][2] += Number(item.TRx_Month_3);
+      output[item.Product][3] += Number(item.TRx_Month_4);
+      output[item.Product][4] += Number(item.TRx_Month_5);
+      output[item.Product][5] += Number(item.TRx_Month_6);
+    }
   });
+  // Predict next by getting average
+
+  output["Cholecap"][6] = Math.floor(output["Cholecap"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Zap-a-Pain"][6] = Math.floor(output["Zap-a-Pain"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nasalclear"][6] = Math.floor(output["Nasalclear"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nova-itch"][6] = Math.floor(output["Nova-itch"].reduce((a, b) => {return a + b;}, 0) / 6);
+
   return output;
 }
 
@@ -173,7 +181,7 @@ myForm.addEventListener("submit", function (e) {
   reader.onload = function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
-    makeLineChart(data);
+    makeLineChart(getLineChartData(data));
     console.log(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))

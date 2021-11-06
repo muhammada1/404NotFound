@@ -1,26 +1,48 @@
-var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-var yValues = [55, 49, 44, 24, 15];
-var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
-
-new Chart("myChart", {
-  type: "doughnut",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "World Wide Wine Production 2018"
+function makePieChart(dataArray) {
+  const ctx = document.getElementById('pieChart');
+  console.log("Before");
+  const dataset = getPieChartData();
+  console.log("After");
+  console.log(dataset);
+  let sum = 0;
+  let xVal = [];
+  let yVal = [];
+  for (var i = 0; i < productRankOrdered.length; i++) {
+    sum+=productRankOrdered[i][1];
+  }
+  if(productRankOrdered.length >= 5){
+    for(var i = 0; i < 5; i++){
+      xVal[i] = productRankedOrdered[i+1][0];
+      yVal[i] = (productRankOrdered[i+1][1]);
+    }
+  } else {
+    for(var i = 0; i < productRankOrdered.length+1; i++){
+      xVal[i] = productRankOrdered[i+1][0];
+      yVal[i] = (productRankOrdered[i+1][1]);
     }
   }
-});
+  var barColors = [
+    "#b91d47",
+    "#00aba9",
+    "#2b5797",
+    "#e8c3b9",
+    "#1e7145"
+  ];
+
+  new Chart("myChart", {
+    type: "doughnut",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Most Prescribed Products"
+      }
+    }
+  });
+}

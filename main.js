@@ -48,7 +48,7 @@ function csvToArray(str, delimiter = ",") {
   return arr;
 }
 
-function rankDoctors(doctors, state, dataArray){
+function rankDoctors1(doctors, state, dataArray){
   let myMap = new Map;
   let mapSort1 = new Map;
   let i = 1;
@@ -153,6 +153,29 @@ function rankProducts(dataArray) {
   return productRankOrdered;
 }
 
+function rankDoctors(doctors, state, dataArray){
+  let doctorRankState = {};
+  if(state === "All States"){
+    dataArray.forEach(item => {
+      let doctorRank = {};
+      if (doctorRankState[item.State] === undefined) doctorRankState[item.State] = {};
+      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
+    })
+  } else {
+    dataArray.forEach(item => {
+    if (state === doctorRankState[item.State]) {
+      let doctorRank = {};
+      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
+    }
+    })
+  }
+
+  delete doctorRankState['undefined'];
+
+
+  return doctorRankState;
+}
+
 
 function GFG_Fun(inData) {
   var select = document.getElementById("ProdSelect");
@@ -182,7 +205,7 @@ myForm.addEventListener("submit", function (e) {
     console.log(data);
     console.log(getTotalsNRX(data));
     console.log(rankProducts(data));
-    console.log(rankDoctors(getTotalsNRX(data),"All States",data));
+    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data));
 
 
 

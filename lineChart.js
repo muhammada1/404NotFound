@@ -52,10 +52,21 @@ function makeLineChart(dataset) {
           fontColor: "#fff"
         },
         scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+	  yAxes: [{
+            ticks: {
+              beginAtZero:true,
+              fontColor: 'white'
+            },
+	    gridLines: { color: 'white' }
+          }],
+	  xAxes: [{
+            ticks: {
+              beginAtZero:true,
+              fontColor: 'white'
+            },
+	    gridLines: { color: 'white' }
+          }],
+        },
       }
   });
 }

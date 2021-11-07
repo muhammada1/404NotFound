@@ -1,6 +1,13 @@
 console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
+const csvInputBtn = document.getElementById("csvInputButton")
+
+csvInputBtn.value = csvFile.value == "" ? "Select file..." : csvFile.value.replace(/^.*[\\\/]/, '');
+
+csvFile.addEventListener('change', () => {
+  csvInputBtn.value = csvFile.value.replace(/^.*[\\\/]/, '');
+});
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);

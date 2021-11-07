@@ -113,8 +113,6 @@ function getTopDoctors(dataArray, state, product) {
 }
 
 function setTopTotalTable(tableId, topData) {
-  console.log("Setting top total table")
-  console.log(topData);
   let table = document.getElementById(tableId);
   table.innerHTML = "";
   let th = document.createElement("thead");
@@ -128,7 +126,6 @@ function setTopTotalTable(tableId, topData) {
     tb.appendChild(tr);
   })
   table.appendChild(tb);
-  console.log("ENd of table setting")
 }
 
 

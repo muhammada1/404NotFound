@@ -145,6 +145,24 @@ function setTopTotalTable(tableId, topData) {
   table.appendChild(tb);
 }
 
+function setTopTotalTable2(tableId, topData) {
+  let table = document.getElementById(tableId);
+  table.innerHTML = "";
+  let th = document.createElement("thead");
+  th.innerHTML = "<th>Rank</th><th>Name</th><th>Total New Prescriptions</th>";
+  table.appendChild(th);
+  let tb = document.createElement("tbody");
+  console.log(topData)
+  console.log("Why")
+  topData.forEach((item, index) => {
+    // For each doctor object in topData
+    let tr = document.createElement("tr");
+    tr.innerHTML = "<tr><td>" + (index+1) + "</td><td>" + item.first_name + " " + item.last_name + "</td><td>" + item.total + "</td></tr>";
+    tb.appendChild(tr);
+  })
+  table.appendChild(tb);
+}
+
 let globalData = [];
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -159,7 +177,7 @@ myForm.addEventListener("submit", function (e) {
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
-    setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));
+    setTopTotalTable2("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
 

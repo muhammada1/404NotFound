@@ -145,14 +145,13 @@ topTotalProduct.addEventListener('change', () => {
   setTopTotalTable("topTotalTable", getTopDoctors(globalData, "All States", topTotalProduct.value));
 })
 
-/*
+
 topTotalFutureStates = document.getElementById("topTotalFutureStatesSelect");
-topTotalFutureProduct = document.getElementById("topTotalFutureStatesSelect");
+topTotalFutureProduct = document.getElementById("topTotalFutureProductSelect");
 
 topTotalFutureStates.addEventListener('change', () => {
-  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalProduct.value));
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalFutureStates.value, "All Products"));
 })
 topTotalFutureProduct.addEventListener('change', () => {
-  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalS, "All Products"));
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalFutureProduct.value));
 })
-*/

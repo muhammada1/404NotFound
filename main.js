@@ -176,6 +176,31 @@ function rankDoctors(doctors, state, dataArray){
   return doctorRankState;
 }
 
+function setTopTotalTable(id, topData) {
+  /*
+`   topData = [
+      {
+        id,
+        first_name,
+        last_name,
+        total
+      }
+    ]`
+  */
+  let table = document.getElementById("topTotalTable");
+  table.innerHTML = "";
+  let th = document.createElement("thead");
+  th.innerHTML = "<th>Rank</th><th>Name</th><th>Total Prescribed</th>";
+  table.appendChild(th);
+  let tb = document.createElement("tbody");
+  topData.forEach(item => {
+    // For each doctor object in topData
+    let tr = document.createElement("tr");
+    tr.innerHTML = "<tr><td>" + item.id + "</td><td>" + item.first_name + " " + item.last_name + "</td><td>" + item.total + "</td></tr>";
+    tb.appendChild(tr);
+  })
+  table.appendChild(tb);
+}
 
 function GFG_Fun(inData) {
   var select = document.getElementById("ProdSelect");

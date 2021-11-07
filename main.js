@@ -46,6 +46,33 @@ function getLineChartData(dataArray) {
   return output;
 }
 
+
+function linechart(dataArray) {
+  var block = [];
+  var occ = [];
+
+  dataArray.forEach(item => {
+    randColor = getRandomColor();
+    if(!occ.includes(item.Product)) {
+      occ.push(item.Product)
+      block.push({'label' : item.Product, 'data' : [Number(item.TRx_Month_1), Number(item.TRx_Month_2) , Number(item.TRx_Month_3), Number(item.TRx_Month_4), Number(item.TRx_Month_5), Number(item.TRx_Month_6), Math.floor((Number(item.TRx_Month_1)+ Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6))/6)], 'backgroundColor': randColor, 'borderColor': randColor, 'fill': false, 'lineTension': 0, 'radius': 5});
+    }
+
+  });
+  block.length = 10
+  return block;
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
 function rankProducts(dataArray) {
   let productRank = {};
   dataArray.forEach(item => {
@@ -175,7 +202,7 @@ myForm.addEventListener("submit", function (e) {
     globalData = data;
     GFG_Fun(data, "ProdSelect")
     GFG_Fun(data, "ProdSelectFuture")
-    makeLineChart(getLineChartData(data));
+    makeLineChart(linechart(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
     setTopTotalTable2("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));

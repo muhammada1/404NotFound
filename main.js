@@ -112,6 +112,19 @@ function getTopDoctors(dataArray, state, product) {
   return doctors;
 }
 
+function getTopFutureDoctors(dataArray, state, product) {
+  let doctors = [];
+  dataArray.forEach(item => {
+    if ((state === "All States" || item.State === state) && (product === "All Products" || item.Product === product)) {
+      let sum = Number(item.NRx_Month_1) + Number(item.NRx_Month_2) + Number(item.NRx_Month_3) + Number(item.NRx_Month_4) + Number(item.NRx_Month_5) + Number(item.NRx_Month_6);
+      doctors.push({id: item.id, first_name: item.first_name, last_name: item.last_name, total: sum});
+    }
+  });
+  doctors.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
+  doctors.length = 10;
+  return doctors;
+}
+
 function setTopTotalTable(tableId, topData) {
   let table = document.getElementById(tableId);
   table.innerHTML = "";
@@ -140,6 +153,7 @@ myForm.addEventListener("submit", function (e) {
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
+    setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
 

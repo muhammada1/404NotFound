@@ -1,7 +1,5 @@
 function makePieChart(productRankOrdered) {
   const ctx = document.getElementById('pieChart');
-  console.log("Before")
-  console.log(productRankOrdered)
   let sum = 0;
   let xVal = [];
   let yVal = [];
@@ -39,7 +37,14 @@ function makePieChart(productRankOrdered) {
     options: {
       title: {
         display: true,
-        text: "Most Prescribed Products"
+        text: "Most Prescribed Products",
+        fontSize: 24,
+        fontColor: "#fff"
+      },
+      legend: {
+	labels: {
+	  fontColor: "white"
+	}
       }
     }
   });

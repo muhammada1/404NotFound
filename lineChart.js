@@ -48,8 +48,13 @@ function makeLineChart(dataset) {
           display: true,
           position: "top",
           text: "TRx predictions",
-          fontSize: 18,
+          fontSize: 24,
           fontColor: "#fff"
+        },
+	legend: {
+          labels: {
+            fontColor: "white"
+          }
         },
         scales: {
 	  yAxes: [{

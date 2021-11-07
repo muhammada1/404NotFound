@@ -46,57 +46,6 @@ function getLineChartData(dataArray) {
   return output;
 }
 
-function getTotalsTRX(dataArray) {
-  // Calculate totals trx
-  let doctors = []
-  dataArray.forEach(item => {
-    let sum = 0;
-    sum += Number(item.TRx_Month_1);
-    sum += Number(item.TRx_Month_2);
-    sum += Number(item.TRx_Month_3);
-    sum += Number(item.TRx_Month_4);
-    sum += Number(item.TRx_Month_5);
-    sum += Number(item.TRx_Month_6);
-    doctors[item.id] = sum;
-  })
-  return doctors;
-}
-function getTotalsNRX(dataArray) {
-  // Calculate totals nrx
-  let doctors = []
-  dataArray.forEach(item => {
-    let sum = 0;
-    sum += Number(item.NRx_Month_1);
-    sum += Number(item.NRx_Month_2);
-    sum += Number(item.NRx_Month_3);
-    sum += Number(item.NRx_Month_4);
-    sum += Number(item.NRx_Month_5);
-    sum += Number(item.NRx_Month_6);
-    doctors[item.id] = sum;
-  })
-  return doctors;
-}
-
-
-function differentProducts(dataArray) {
-  var diffProds = [];
-
-  diffProds.push("All Products")
-  dataArray.forEach(item => {
-    if(!diffProds.includes(item.Product)) {
-      diffProds.push(item.Product)
-    }
-  })
-
-  diffProds = diffProds.filter(function( element ) {
-    return element !== undefined;
- });
-
-
-  
-  return diffProds;
-}
-
 function rankProducts(dataArray) {
   let productRank = {};
   dataArray.forEach(item => {
@@ -119,20 +68,6 @@ function rankProducts(dataArray) {
   return productRankOrdered;
 }
 
-function rankDoctors(doctors, state, dataArray){
-  let doctorRankState = {};
-  if(state === "All States"){
-    dataArray.forEach(item => {
-      let doctorRank = {};
-      if (doctorRankState[item.State] === undefined) doctorRankState[item.State] = {};
-      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6)
-    })
-  }
-
-  delete doctorRankState['undefined'];
-
-
-  return doctorRankState;
 function getTopDoctors(dataArray, state, product) {
   let doctors = [];
   dataArray.forEach(item => {
@@ -159,17 +94,6 @@ function getTopFutureDoctors(dataArray, state, product) {
   return doctors;
 }
 
-function GFG_Fun(inData) {
-  var select = document.getElementById("ProdSelect");
-  var choices = differentProducts(inData);
-  //var choices = ["test","val"];
-  for (var i = 0; i < choices.length; i++) {
-    var optn = choices[i];
-    var el = document.createElement("option");
-    el.textContent = optn;
-    el.value = optn;
-    select.appendChild(el);
-  }
 function setTopTotalTable(tableId, topData) {
   let table = document.getElementById(tableId);
   table.innerHTML = "";
@@ -200,21 +124,6 @@ myForm.addEventListener("submit", function (e) {
     globalData = data;
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
-    console.log(data);
-    console.log(getTotalsNRX(data));
-    console.log(rankProducts(data));
-    console.log(rankDoctors(getTotalsNRX(data),"All States",data));
-    console.log(differentProducts(data));
-
-
-
-
-    GFG_Fun(data);
-    //console.log(pieChart(rankProducts(data)))
-    console.log(getTotalsNRX(data))
-    console.log(rankProducts(data))
-    //console.log(pieChart)
-    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
     setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));
     document.getElementById("landingPage").style.display = "none";

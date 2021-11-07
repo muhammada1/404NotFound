@@ -26,40 +26,81 @@ function csvToArray(str, delimiter = ",") {
   return arr;
 }
 
-function getLineChartData(dataArray) {
-  let output = {};
-  dataArray.forEach(item => {
-    if (output[item.Product] == undefined) {
-      output[item.Product] = [0,0,0,0,0,0];
-    }
-    output[item.Product][0] += Number(item.TRx_Month_1);
-    output[item.Product][1] += Number(item.TRx_Month_2);
-    output[item.Product][2] += Number(item.TRx_Month_3);
-    output[item.Product][3] += Number(item.TRx_Month_4);
-    output[item.Product][4] += Number(item.TRx_Month_5);
-    output[item.Product][5] += Number(item.TRx_Month_6);
-  });
-  // Predict next by getting average
-  Object.keys(output).forEach((key) => {
-    output[key][6] = Math.floor(output[key].reduce((a, b) => {return a + b;}, 0) / 6);
-  })
-  return output;
-}
-
 
 function linechart(dataArray) {
   var block = [];
-  var occ = [];
+  
+diffArray = differentProducts(dataArray);
+diffArray = diffArray.filter(function( element ) {
+  return element !== "All Products";
+});
+let sumM1 = [];
+let sumM2 = [];
+let sumM3 = [];
+let sumM4 = [];
+let sumM5 = [];
+let sumM6 = [];
+for(let i = 0; i < diffArray.length; i++){
+  sumM1[i]=0;
+  sumM2[i]=0;
+  sumM3[i]=0;
+  sumM4[i]=0;
+  sumM5[i]=0;
+  sumM6[i]=0;
+}
 
-  dataArray.forEach(item => {
-    randColor = getRandomColor();
-    if(!occ.includes(item.Product)) {
-      occ.push(item.Product)
-      block.push({'label' : item.Product, 'data' : [Number(item.TRx_Month_1), Number(item.TRx_Month_2) , Number(item.TRx_Month_3), Number(item.TRx_Month_4), Number(item.TRx_Month_5), Number(item.TRx_Month_6), Math.floor((Number(item.TRx_Month_1)+ Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6))/6)], 'backgroundColor': randColor, 'borderColor': randColor, 'fill': false, 'lineTension': 0, 'radius': 5});
+
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM1[i]+=parseInt(item.TRx_Month_1);
     }
-
-  });
-  block.length = 10
+  })
+}
+console.log(sumM1);
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM2[i]+=parseInt(item.TRx_Month_2);
+    }
+  })
+}
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM3[i]+=parseInt(item.TRx_Month_3);
+    }
+  })
+}
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM4[i]+=parseInt(item.TRx_Month_4);
+    }
+  })
+}
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM5[i]+=parseInt(item.TRx_Month_5);
+    }
+  })
+}
+for(let i = 0; i < diffArray.length; i++){
+  dataArray.forEach(item =>{
+    if(item.Product === diffArray[i]){
+      sumM6[i]+=parseInt(item.TRx_Month_6);
+    }
+  })
+}
+console.log(sumM6[0])
+for(let i = 0; i < diffArray.length; i++){
+  randColor = getRandomColor();
+  block.push({'label' : diffArray[i], 'data' : [parseInt(sumM1[i]), parseInt(sumM2[i]) , parseInt(sumM3[i]), parseInt(sumM4[i]), parseInt(sumM5[i]),parseInt(sumM6[i]), 
+  Math.floor((parseInt(sumM1[i])+ parseInt(sumM2[i]) +parseInt(sumM3[i]) + parseInt(sumM4[i]) + parseInt(sumM5[i])+ parseInt(sumM6[i]))/6)], 'backgroundColor': randColor, 'borderColor': randColor, 'fill': false, 'lineTension': 0, 'radius': 5});
+}
+ 
+  
   return block;
 }
 

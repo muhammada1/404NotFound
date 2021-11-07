@@ -2,6 +2,31 @@ console.log("Working");
 const myForm = document.getElementById("myForm");
 const csvFile = document.getElementById("csvFileInput");
 
+var input = document.getElementById( 'file-upload' );
+var infoArea = document.getElementById( 'file-upload-filename' );
+//input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  
+  // the change event gives us the input it occurred in 
+  var input = event.srcElement;
+  
+  // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+  var fileName = input.files[0].name;
+  
+  // use fileName however fits your app best, i.e. add it into a div
+  infoArea.textContent = 'File name: ' + fileName;
+}
+
+
+
+
+
+
+
+
+
+
+
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
   const rows = str.slice(str.indexOf("\n") + 1).split("\n");
@@ -104,6 +129,20 @@ function rankProducts(dataArray) {
 }
 
 
+function GFG_Fun(inData) {
+  var select = document.getElementById("ProdSelect");
+  var choices1 = rankDoctors(getTotalsNRX(inData),"All States",inData);
+  var choices = Object.keys(choices1);
+  //var choices = ["test","val"];
+  for (var i = 0; i < choices.length; i++) {
+    var optn = choices[i];
+    var el = document.createElement("option");
+    el.textContent = optn;
+    el.value = optn;
+    select.appendChild(el);
+  }
+}
+
 
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -114,12 +153,23 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     console.log(data);
-    console.log(getTotalsNRX(data))
-    console.log(rankProducts(data))
-    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
+    console.log(getTotalsNRX(data));
+    console.log(rankProducts(data));
+    console.log(rankDoctors(getTotalsNRX(data),"All States",data));
+    GFG_Fun(data);
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
+
+
+    //Product Select Choice Gen
+    var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
+    var choices = choices1.entries();
+    console.log(choices)
+
+
+
+
   };
 
   reader.readAsText(input);

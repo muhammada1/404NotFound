@@ -24,16 +24,6 @@ function showFileName( event ) {
   infoArea.textContent = 'File name: ' + fileName;
 }
 
-
-
-
-
-
-
-
-
-
-
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
   const rows = str.slice(str.indexOf("\n") + 1).split("\n");
@@ -176,30 +166,36 @@ function rankDoctors(doctors, state, dataArray){
   return doctorRankState;
 }
 
-function setTopTotalTable(id, topData) {
-  /*
-`   topData = [
-      {
-        id,
-        first_name,
-        last_name,
-        total
-      }
-    ]`
-  */
+function getTopDoctors(dataArray, state, product) {
+  let doctors = [];
+  dataArray.forEach(item => {
+    if ((state === "All States" || item.State === state) && (product === "All Products" || item.Product === product)) {
+      let sum = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
+      doctors.push({id: item.id, first_name: item.first_name, last_name: item.last_name, total: sum});
+    }
+  });
+  doctors.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
+  doctors.length = 10;
+  return doctors;
+}
+
+function setTopTotalTable(topData) {
+  console.log("Setting top total table")
+  console.log(topData);
   let table = document.getElementById("topTotalTable");
   table.innerHTML = "";
   let th = document.createElement("thead");
   th.innerHTML = "<th>Rank</th><th>Name</th><th>Total Prescribed</th>";
   table.appendChild(th);
   let tb = document.createElement("tbody");
-  topData.forEach(item => {
+  topData.forEach((item, index) => {
     // For each doctor object in topData
     let tr = document.createElement("tr");
-    tr.innerHTML = "<tr><td>" + item.id + "</td><td>" + item.first_name + " " + item.last_name + "</td><td>" + item.total + "</td></tr>";
+    tr.innerHTML = "<tr><td>" + (index+1) + "</td><td>" + item.first_name + " " + item.last_name + "</td><td>" + item.total + "</td></tr>";
     tb.appendChild(tr);
   })
   table.appendChild(tb);
+  console.log("ENd of table setting")
 }
 
 function GFG_Fun(inData) {
@@ -227,34 +223,31 @@ myForm.addEventListener("submit", function (e) {
     const data = csvToArray(text);
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
-    console.log(data);
-    console.log(getTotalsNRX(data));
-    console.log(rankProducts(data));
-    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data));
+    setTopTotalTable(getTopDoctors(data, "All States", "All Products"));
+    //console.log(data);
+    //console.log(getTotalsNRX(data));
+    //console.log(rankProducts(data));
+    //console.log(rankDoctors(getTotalsNRX(data),"Ohio",data));
 
 
 
 
-    GFG_Fun(data);
+    //GFG_Fun(data);
     //console.log(pieChart(rankProducts(data)))
-    console.log(getTotalsNRX(data))
-    console.log(rankProducts(data))
+    //console.log(getTotalsNRX(data))
+    //console.log(rankProducts(data))
     //console.log(pieChart)
-    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
+    //console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
 
 
     //Product Select Choice Gen
-    var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
-    choices1[0].keys
-    var choices = choices1.entries();
-    console.log(choices)
-
-
-
-
+    //var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
+    //choices1[0].keys
+    //var choices = choices1.entries();
+    //console.log(choices)
   };
 
   reader.readAsText(input);

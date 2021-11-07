@@ -186,9 +186,7 @@ topTotalFutureProduct = document.getElementById("topTotalFutureProductSelect");
 
 topTotalFutureStates.addEventListener('change', () => {
   setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalFutureStates.value, "All Products"));
-
 })
 topTotalFutureProduct.addEventListener('change', () => {
   setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalFutureProduct.value));
 })
-

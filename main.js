@@ -94,6 +94,21 @@ function getTopFutureDoctors(dataArray, state, product) {
   return doctors;
 }
 
+function GFG_Fun(inData) {
+  var select = document.getElementById("ProdSelect");
+  var choices1 = rankDoctors(getTotalsNRX(inData),"All States",inData);
+  var choices = Object.keys(choices1);
+  var choices = differentProducts(inData);
+  //var choices = ["test","val"];
+  for (var i = 0; i < choices.length; i++) {
+    var optn = choices[i];
+    var el = document.createElement("option");
+    el.textContent = optn;
+    el.value = optn;
+    select.appendChild(el);
+  }
+}
+
 function setTopTotalTable(tableId, topData) {
   let table = document.getElementById(tableId);
   table.innerHTML = "";
@@ -122,6 +137,7 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     globalData = data;
+    GFG_Fun(data)
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));

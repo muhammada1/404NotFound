@@ -115,8 +115,8 @@ function getTopFutureDoctors(dataArray, state, product) {
   return doctors;
 }
 
-function GFG_Fun(inData) {
-  var select = document.getElementById("ProdSelect");
+function GFG_Fun(inData, elem_id) {
+  var select = document.getElementById(elem_id);
   var choices = differentProducts(inData);
   for (var i = 0; i < choices.length; i++) {
     var optn = choices[i];
@@ -155,7 +155,8 @@ myForm.addEventListener("submit", function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
     globalData = data;
-    GFG_Fun(data)
+    GFG_Fun(data, "ProdSelect")
+    GFG_Fun(data, "ProdSelectFuture")
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
@@ -182,7 +183,7 @@ topTotalProduct.addEventListener('change', () => {
 
 
 topTotalFutureStates = document.getElementById("topTotalFutureStatesSelect");
-topTotalFutureProduct = document.getElementById("topTotalFutureProductSelect");
+topTotalFutureProduct = document.getElementById("ProdSelectFuture");
 
 topTotalFutureStates.addEventListener('change', () => {
   setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalFutureStates.value, "All Products"));

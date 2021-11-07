@@ -112,10 +112,10 @@ function getTopDoctors(dataArray, state, product) {
   return doctors;
 }
 
-function setTopTotalTable(topData) {
+function setTopTotalTable(tableId, topData) {
   console.log("Setting top total table")
   console.log(topData);
-  let table = document.getElementById("topTotalTable");
+  let table = document.getElementById(tableId);
   table.innerHTML = "";
   let th = document.createElement("thead");
   th.innerHTML = "<th>Rank</th><th>Name</th><th>Total Prescribed</th>";
@@ -142,7 +142,7 @@ myForm.addEventListener("submit", function (e) {
     const data = csvToArray(text);
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
-    setTopTotalTable(getTopDoctors(data, "All States", "All Products"));
+    setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
 

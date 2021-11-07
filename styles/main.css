@@ -91,7 +91,7 @@ html {
 }
 
 .boxTitle {
-	padding-left: 20px;
+	text-align: center;
 	padding-top: 20px;
 }
 
@@ -112,3 +112,26 @@ opacity: 0;
 input:focus + label {
 outline: 2px solid;
 }
+
+table {
+	border-spacing: 15px;
+	padding: 5px
+  }
+
+  thead, tr {
+    text-align: left;
+}
+
+.boxLabel {
+	padding-left: 20px;
+	padding-top: 20px;
+  }
+
+  .pieC {
+	padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+  }

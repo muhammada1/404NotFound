@@ -68,6 +68,27 @@ function rankProducts(dataArray) {
   return productRankOrdered;
 }
 
+
+function differentProducts(dataArray) {
+  var diffProds = [];
+
+  diffProds.push("All Products")
+  dataArray.forEach(item => {
+    if(!diffProds.includes(item.Product)) {
+      diffProds.push(item.Product)
+    }
+  })
+
+  diffProds = diffProds.filter(function( element ) {
+    return element !== undefined;
+ });
+
+
+
+  return diffProds;
+}
+
+
 function getTopDoctors(dataArray, state, product) {
   let doctors = [];
   dataArray.forEach(item => {
@@ -96,10 +117,7 @@ function getTopFutureDoctors(dataArray, state, product) {
 
 function GFG_Fun(inData) {
   var select = document.getElementById("ProdSelect");
-  var choices1 = rankDoctors(getTotalsNRX(inData),"All States",inData);
-  var choices = Object.keys(choices1);
   var choices = differentProducts(inData);
-  //var choices = ["test","val"];
   for (var i = 0; i < choices.length; i++) {
     var optn = choices[i];
     var el = document.createElement("option");
@@ -151,24 +169,26 @@ myForm.addEventListener("submit", function (e) {
 });
 
 topTotalStates = document.getElementById("topTotalStatesSelect");
-topTotalProduct = document.getElementById("topTotalProductSelect");
+topTotalProduct = document.getElementById("ProdSelect");
 
 topTotalStates.addEventListener('change', () => {
   console.log(topTotalStates.value);
   setTopTotalTable("topTotalTable", getTopDoctors(globalData, topTotalStates.value, "All Products"));
 })
+
 topTotalProduct.addEventListener('change', () => {
   setTopTotalTable("topTotalTable", getTopDoctors(globalData, "All States", topTotalProduct.value));
 })
 
-/*
+
 topTotalFutureStates = document.getElementById("topTotalFutureStatesSelect");
-topTotalFutureProduct = document.getElementById("topTotalFutureStatesSelect");
+topTotalFutureProduct = document.getElementById("topTotalFutureProductSelect");
 
 topTotalFutureStates.addEventListener('change', () => {
-  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalProduct.value));
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalFutureStates.value, "All Products"));
+
 })
 topTotalFutureProduct.addEventListener('change', () => {
-  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalS, "All Products"));
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalFutureProduct.value));
 })
-*/
+

@@ -135,7 +135,7 @@ myForm.addEventListener("submit", function (e) {
 });
 
 topTotalStates = document.getElementById("topTotalStatesSelect");
-topTotalProduct = document.getElementById("topTotalStatesSelect");
+topTotalProduct = document.getElementById("topTotalProductSelect");
 
 topTotalStates.addEventListener('change', () => {
   console.log(topTotalStates.value);

@@ -130,6 +130,26 @@ function getTotalsNRX(dataArray) {
   return doctors;
 }
 
+
+function differentProducts(dataArray) {
+  var diffProds = [];
+
+  diffProds.push("All Products")
+  dataArray.forEach(item => {
+    if(!diffProds.includes(item.Product)) {
+      diffProds.push(item.Product)
+    }
+  })
+
+  diffProds = diffProds.filter(function( element ) {
+    return element !== undefined;
+ });
+
+
+  
+  return diffProds;
+}
+
 function rankProducts(dataArray) {
   let productRank = {};
   dataArray.forEach(item => {
@@ -159,14 +179,7 @@ function rankDoctors(doctors, state, dataArray){
     dataArray.forEach(item => {
       let doctorRank = {};
       if (doctorRankState[item.State] === undefined) doctorRankState[item.State] = {};
-      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
-    })
-  } else {
-    dataArray.forEach(item => {
-    if (state === doctorRankState[item.State]) {
-      let doctorRank = {};
-      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
-    }
+      doctorRankState[item.State][item.id] = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6)
     })
   }
 
@@ -179,8 +192,7 @@ function rankDoctors(doctors, state, dataArray){
 
 function GFG_Fun(inData) {
   var select = document.getElementById("ProdSelect");
-  var choices1 = rankDoctors(getTotalsNRX(inData),"All States",inData);
-  var choices = Object.keys(choices1);
+  var choices = differentProducts(inData);
   //var choices = ["test","val"];
   for (var i = 0; i < choices.length; i++) {
     var optn = choices[i];
@@ -205,7 +217,8 @@ myForm.addEventListener("submit", function (e) {
     console.log(data);
     console.log(getTotalsNRX(data));
     console.log(rankProducts(data));
-    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data));
+    console.log(rankDoctors(getTotalsNRX(data),"All States",data));
+    console.log(differentProducts(data));
 
 
 

@@ -102,7 +102,7 @@ function setTopTotalTable(tableId, topData) {
   table.appendChild(th);
   let tb = document.createElement("tbody");
   console.log(topData)
-  console.log("WHAT!")
+  console.log("Why")
   topData.forEach((item, index) => {
     // For each doctor object in topData
     let tr = document.createElement("tr");

@@ -9,6 +9,31 @@ csvFile.addEventListener('change', () => {
   csvInputBtn.value = csvFile.value.replace(/^.*[\\\/]/, '');
 });
 
+var input = document.getElementById( 'file-upload' );
+var infoArea = document.getElementById( 'file-upload-filename' );
+//input.addEventListener( 'change', showFileName );
+function showFileName( event ) {
+  
+  // the change event gives us the input it occurred in 
+  var input = event.srcElement;
+  
+  // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+  var fileName = input.files[0].name;
+  
+  // use fileName however fits your app best, i.e. add it into a div
+  infoArea.textContent = 'File name: ' + fileName;
+}
+
+
+
+
+
+
+
+
+
+
+
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
   const rows = str.slice(str.indexOf("\n") + 1).split("\n");
@@ -36,23 +61,23 @@ function rankDoctors(doctors, state, dataArray){
     console.log(mapSort1);
   } else {
     doctors.forEach(item => {
-
+      
       if(dataArray[i-1].State === state){
 
         myMap.set(i,item);
       }
       i++;
-
-
+      
+      
     })
     mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
     console.log(mapSort1);
-
+    
   }
 
   return mapSort1;
 }
-
+    
 
 function getLineChartData(dataArray) {
   let output = {
@@ -127,13 +152,29 @@ function rankProducts(dataArray) {
   var productRankOrdered = [];
   for (var product in productRank) {
     productRankOrdered.push([product, productRank[product]]);
-  }
+  } 
 
   productRankOrdered.sort(function(a, b) {
       return b[1] - a[1];
   });
   return productRankOrdered;
 }
+
+
+function GFG_Fun(inData) {
+  var select = document.getElementById("ProdSelect");
+  var choices1 = rankDoctors(getTotalsNRX(inData),"All States",inData);
+  var choices = Object.keys(choices1);
+  //var choices = ["test","val"];
+  for (var i = 0; i < choices.length; i++) {
+    var optn = choices[i];
+    var el = document.createElement("option");
+    el.textContent = optn;
+    el.value = optn;
+    select.appendChild(el);
+  }
+}
+
 
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -146,6 +187,14 @@ myForm.addEventListener("submit", function (e) {
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     console.log(data);
+    console.log(getTotalsNRX(data));
+    console.log(rankProducts(data));
+    console.log(rankDoctors(getTotalsNRX(data),"All States",data));
+    
+    
+    
+    
+    GFG_Fun(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))
     console.log(rankProducts(data))
@@ -154,6 +203,17 @@ myForm.addEventListener("submit", function (e) {
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
+
+
+    //Product Select Choice Gen
+    var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
+    choices1[0].keys
+    var choices = choices1.entries();
+    console.log(choices)
+
+
+
+
   };
 
   reader.readAsText(input);

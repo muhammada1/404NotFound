@@ -94,3 +94,21 @@ html {
 	padding-left: 20px;
 	padding-top: 20px;
 }
+
+select {
+	color: black;
+}
+select option {
+	color: black;
+  }
+
+
+input[type="file"] { 
+z-index: -1;
+position: absolute;
+opacity: 0;
+}
+
+input:focus + label {
+outline: 2px solid;
+}

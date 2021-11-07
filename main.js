@@ -63,7 +63,7 @@ function rankDoctors(doctors, state, dataArray){
       
       
     })
-    const mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
+    mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
     console.log(mapSort1);
     
   }
@@ -72,7 +72,32 @@ function rankDoctors(doctors, state, dataArray){
 }
     
 
+function getLineChartData(dataArray) {
+  let output = {
+    "Cholecap": [0,0,0,0,0,0],
+    "Zap-a-Pain": [0,0,0,0,0,0],
+    "Nasalclear": [0,0,0,0,0,0],
+    "Nova-itch": [0,0,0,0,0,0],
+  };
+  dataArray.forEach(item => {
+    if (output[item.Product] !== undefined) {
+      output[item.Product][0] += Number(item.TRx_Month_1);
+      output[item.Product][1] += Number(item.TRx_Month_2);
+      output[item.Product][2] += Number(item.TRx_Month_3);
+      output[item.Product][3] += Number(item.TRx_Month_4);
+      output[item.Product][4] += Number(item.TRx_Month_5);
+      output[item.Product][5] += Number(item.TRx_Month_6);
+    }
+  });
+  // Predict next by getting average
 
+  output["Cholecap"][6] = Math.floor(output["Cholecap"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Zap-a-Pain"][6] = Math.floor(output["Zap-a-Pain"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nasalclear"][6] = Math.floor(output["Nasalclear"].reduce((a, b) => {return a + b;}, 0) / 6);
+  output["Nova-itch"][6] = Math.floor(output["Nova-itch"].reduce((a, b) => {return a + b;}, 0) / 6);
+
+  return output;
+}
 
 function getTotalsTRX(dataArray) {
   // Calculate totals trx
@@ -152,11 +177,22 @@ myForm.addEventListener("submit", function (e) {
   reader.onload = function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
+    makeLineChart(getLineChartData(data));
+    makePieChart(rankProducts(data));
     console.log(data);
     console.log(getTotalsNRX(data));
     console.log(rankProducts(data));
     console.log(rankDoctors(getTotalsNRX(data),"All States",data));
+    
+    
+    
+    
     GFG_Fun(data);
+    //console.log(pieChart(rankProducts(data)))
+    console.log(getTotalsNRX(data))
+    console.log(rankProducts(data))
+    //console.log(pieChart)
+    console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
     //document.write(JSON.stringify(data));
@@ -164,6 +200,7 @@ myForm.addEventListener("submit", function (e) {
 
     //Product Select Choice Gen
     var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
+    choices1[0].keys
     var choices = choices1.entries();
     console.log(choices)
 

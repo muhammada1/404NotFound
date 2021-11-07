@@ -13,13 +13,13 @@ var input = document.getElementById( 'file-upload' );
 var infoArea = document.getElementById( 'file-upload-filename' );
 //input.addEventListener( 'change', showFileName );
 function showFileName( event ) {
-  
-  // the change event gives us the input it occurred in 
+
+  // the change event gives us the input it occurred in
   var input = event.srcElement;
-  
+
   // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
   var fileName = input.files[0].name;
-  
+
   // use fileName however fits your app best, i.e. add it into a div
   infoArea.textContent = 'File name: ' + fileName;
 }
@@ -61,48 +61,41 @@ function rankDoctors(doctors, state, dataArray){
     console.log(mapSort1);
   } else {
     doctors.forEach(item => {
-      
+
       if(dataArray[i-1].State === state){
 
         myMap.set(i,item);
       }
       i++;
-      
-      
+
+
     })
     mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
     console.log(mapSort1);
-    
+
   }
 
   return mapSort1;
 }
-    
+
 
 function getLineChartData(dataArray) {
-  let output = {
-    "Cholecap": [0,0,0,0,0,0],
-    "Zap-a-Pain": [0,0,0,0,0,0],
-    "Nasalclear": [0,0,0,0,0,0],
-    "Nova-itch": [0,0,0,0,0,0],
-  };
+  let output = {};
   dataArray.forEach(item => {
-    if (output[item.Product] !== undefined) {
-      output[item.Product][0] += Number(item.TRx_Month_1);
-      output[item.Product][1] += Number(item.TRx_Month_2);
-      output[item.Product][2] += Number(item.TRx_Month_3);
-      output[item.Product][3] += Number(item.TRx_Month_4);
-      output[item.Product][4] += Number(item.TRx_Month_5);
-      output[item.Product][5] += Number(item.TRx_Month_6);
+    if (output[item.Product] == undefined) {
+      output[item.Product] = [0,0,0,0,0,0];
     }
+    output[item.Product][0] += Number(item.TRx_Month_1);
+    output[item.Product][1] += Number(item.TRx_Month_2);
+    output[item.Product][2] += Number(item.TRx_Month_3);
+    output[item.Product][3] += Number(item.TRx_Month_4);
+    output[item.Product][4] += Number(item.TRx_Month_5);
+    output[item.Product][5] += Number(item.TRx_Month_6);
   });
   // Predict next by getting average
-
-  output["Cholecap"][6] = Math.floor(output["Cholecap"].reduce((a, b) => {return a + b;}, 0) / 6);
-  output["Zap-a-Pain"][6] = Math.floor(output["Zap-a-Pain"].reduce((a, b) => {return a + b;}, 0) / 6);
-  output["Nasalclear"][6] = Math.floor(output["Nasalclear"].reduce((a, b) => {return a + b;}, 0) / 6);
-  output["Nova-itch"][6] = Math.floor(output["Nova-itch"].reduce((a, b) => {return a + b;}, 0) / 6);
-
+  Object.keys(output).forEach((key) => {
+    output[key][6] = Math.floor(output[key].reduce((a, b) => {return a + b;}, 0) / 6);
+  })
   return output;
 }
 
@@ -152,7 +145,7 @@ function rankProducts(dataArray) {
   var productRankOrdered = [];
   for (var product in productRank) {
     productRankOrdered.push([product, productRank[product]]);
-  } 
+  }
 
   productRankOrdered.sort(function(a, b) {
       return b[1] - a[1];
@@ -190,10 +183,10 @@ myForm.addEventListener("submit", function (e) {
     console.log(getTotalsNRX(data));
     console.log(rankProducts(data));
     console.log(rankDoctors(getTotalsNRX(data),"All States",data));
-    
-    
-    
-    
+
+
+
+
     GFG_Fun(data);
     //console.log(pieChart(rankProducts(data)))
     console.log(getTotalsNRX(data))

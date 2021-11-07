@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "electron app.js",
+    "build-win": "electron-packager . 404notfound --platform=win32 --arch=x64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/muhammada1/404NotFound#readme",
   "dependencies": {
     "electron": "^15.3.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.4.0"
   }
 }

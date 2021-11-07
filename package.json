@@ -1,0 +1,27 @@
+{
+  "name": "404notfound",
+  "version": "1.0.0",
+  "description": "https://muhammada1.github.io/404NotFound/",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js",
+    "build-win": "electron-packager . 404notfound --platform=win32 --arch=x64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhammada1/404NotFound.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muhammada1/404NotFound/issues"
+  },
+  "homepage": "https://github.com/muhammada1/404NotFound#readme",
+  "dependencies": {
+    "electron": "^15.3.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.4.0"
+  }
+}

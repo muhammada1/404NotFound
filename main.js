@@ -11,28 +11,6 @@ csvFile.addEventListener('change', () => {
 
 var input = document.getElementById( 'file-upload' );
 var infoArea = document.getElementById( 'file-upload-filename' );
-//input.addEventListener( 'change', showFileName );
-function showFileName( event ) {
-
-  // the change event gives us the input it occurred in
-  var input = event.srcElement;
-
-  // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-  var fileName = input.files[0].name;
-
-  // use fileName however fits your app best, i.e. add it into a div
-  infoArea.textContent = 'File name: ' + fileName;
-}
-
-
-
-
-
-
-
-
-
-
 
 function csvToArray(str, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
@@ -47,37 +25,6 @@ function csvToArray(str, delimiter = ",") {
   });
   return arr;
 }
-
-function rankDoctors1(doctors, state, dataArray){
-  let myMap = new Map;
-  let mapSort1 = new Map;
-  let i = 1;
-  if(state === "All States"){
-    doctors.forEach(item => {
-      myMap.set(i,item);
-      i++;
-    })
-    mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
-    console.log(mapSort1);
-  } else {
-    doctors.forEach(item => {
-
-      if(dataArray[i-1].State === state){
-
-        myMap.set(i,item);
-      }
-      i++;
-
-
-    })
-    mapSort1 = new Map([...myMap.entries()].sort((a, b) => b[1] - a[1]));
-    console.log(mapSort1);
-
-  }
-
-  return mapSort1;
-}
-
 
 function getLineChartData(dataArray) {
   let output = {};
@@ -166,7 +113,6 @@ function rankProducts(dataArray) {
   for (var product in productRank) {
     productRankOrdered.push([product, productRank[product]]);
   }
-
   productRankOrdered.sort(function(a, b) {
       return b[1] - a[1];
   });
@@ -187,8 +133,31 @@ function rankDoctors(doctors, state, dataArray){
 
 
   return doctorRankState;
+function getTopDoctors(dataArray, state, product) {
+  let doctors = [];
+  dataArray.forEach(item => {
+    if ((state === "All States" || item.State === state) && (product === "All Products" || item.Product === product)) {
+      let sum = Number(item.TRx_Month_1) + Number(item.TRx_Month_2) + Number(item.TRx_Month_3) + Number(item.TRx_Month_4) + Number(item.TRx_Month_5) + Number(item.TRx_Month_6);
+      doctors.push({id: item.id, first_name: item.first_name, last_name: item.last_name, total: sum});
+    }
+  });
+  doctors.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
+  doctors.length = 10;
+  return doctors;
 }
 
+function getTopFutureDoctors(dataArray, state, product) {
+  let doctors = [];
+  dataArray.forEach(item => {
+    if ((state === "All States" || item.State === state) && (product === "All Products" || item.Product === product)) {
+      let sum = Number(item.NRx_Month_1) + Number(item.NRx_Month_2) + Number(item.NRx_Month_3) + Number(item.NRx_Month_4) + Number(item.NRx_Month_5) + Number(item.NRx_Month_6);
+      doctors.push({id: item.id, first_name: item.first_name, last_name: item.last_name, total: sum});
+    }
+  });
+  doctors.sort((a, b) => parseFloat(b.total) - parseFloat(a.total));
+  doctors.length = 10;
+  return doctors;
+}
 
 function GFG_Fun(inData) {
   var select = document.getElementById("ProdSelect");
@@ -201,6 +170,20 @@ function GFG_Fun(inData) {
     el.value = optn;
     select.appendChild(el);
   }
+function setTopTotalTable(tableId, topData) {
+  let table = document.getElementById(tableId);
+  table.innerHTML = "";
+  let th = document.createElement("thead");
+  th.innerHTML = "<th>Rank</th><th>Name</th><th>Total Prescribed</th>";
+  table.appendChild(th);
+  let tb = document.createElement("tbody");
+  topData.forEach((item, index) => {
+    // For each doctor object in topData
+    let tr = document.createElement("tr");
+    tr.innerHTML = "<tr><td>" + (index+1) + "</td><td>" + item.first_name + " " + item.last_name + "</td><td>" + item.total + "</td></tr>";
+    tb.appendChild(tr);
+  })
+  table.appendChild(tb);
 }
 
 
@@ -229,19 +212,10 @@ myForm.addEventListener("submit", function (e) {
     console.log(rankProducts(data))
     //console.log(pieChart)
     console.log(rankDoctors(getTotalsNRX(data),"Ohio",data))
+    setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
+    setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(data, "All States", "All Products"));
     document.getElementById("landingPage").style.display = "none";
     document.getElementById("analysisPage").style.display = "block";
-    //document.write(JSON.stringify(data));
-
-
-    //Product Select Choice Gen
-    var choices1 = rankDoctors(getTotalsNRX(data),"All States",data);
-    choices1[0].keys
-    var choices = choices1.entries();
-    console.log(choices)
-
-
-
 
   };
 

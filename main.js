@@ -132,6 +132,8 @@ function setTopTotalTable(tableId, topData) {
   th.innerHTML = "<th>Rank</th><th>Name</th><th>Total Prescribed</th>";
   table.appendChild(th);
   let tb = document.createElement("tbody");
+  console.log(topData)
+  console.log("WHAT!")
   topData.forEach((item, index) => {
     // For each doctor object in topData
     let tr = document.createElement("tr");
@@ -141,7 +143,7 @@ function setTopTotalTable(tableId, topData) {
   table.appendChild(tb);
 }
 
-
+let globalData = [];
 myForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const input = csvFile.files[0];
@@ -150,6 +152,7 @@ myForm.addEventListener("submit", function (e) {
   reader.onload = function (e) {
     const text = e.target.result;
     const data = csvToArray(text);
+    globalData = data;
     makeLineChart(getLineChartData(data));
     makePieChart(rankProducts(data));
     setTopTotalTable("topTotalTable", getTopDoctors(data, "All States", "All Products"));
@@ -161,3 +164,26 @@ myForm.addEventListener("submit", function (e) {
 
   reader.readAsText(input);
 });
+
+topTotalStates = document.getElementById("topTotalStatesSelect");
+topTotalProduct = document.getElementById("topTotalStatesSelect");
+
+topTotalStates.addEventListener('change', () => {
+  console.log(topTotalStates.value);
+  setTopTotalTable("topTotalTable", getTopDoctors(globalData, topTotalStates.value, "All Products"));
+})
+topTotalProduct.addEventListener('change', () => {
+  setTopTotalTable("topTotalTable", getTopDoctors(globalData, "All States", topTotalProduct.value));
+})
+
+/*
+topTotalFutureStates = document.getElementById("topTotalFutureStatesSelect");
+topTotalFutureProduct = document.getElementById("topTotalFutureStatesSelect");
+
+topTotalFutureStates.addEventListener('change', () => {
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, "All States", topTotalProduct.value));
+})
+topTotalFutureProduct.addEventListener('change', () => {
+  setTopTotalTable("topTotalFutureTable", getTopFutureDoctors(globalData, topTotalS, "All Products"));
+})
+*/
